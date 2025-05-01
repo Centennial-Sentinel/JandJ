@@ -8,9 +8,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it326.financialtracker.Model.Goal;
+import it326.financialtracker.Model.LoanDeadline;
 import it326.financialtracker.Model.Transaction;
 import it326.financialtracker.Model.User;
 import it326.financialtracker.Model.UserProfile;
+import it326.financialtracker.Repository.GoalRepository;
+import it326.financialtracker.Repository.LoanDeadlineRepository;
 import it326.financialtracker.Repository.TransactionRepository;
 import it326.financialtracker.Repository.UserProfileRepository;
 import it326.financialtracker.Repository.UserRepository;
@@ -26,6 +30,10 @@ public class UserService{
     private UserProfileRepository profRepository;
     @Autowired
     private TransactionRepository transRepository;
+    @Autowired
+    private GoalRepository goalRepository;
+    @Autowired
+    private LoanDeadlineRepository LDRepository;
     
     public UserProfile loadByUsername(String username) {
         
@@ -70,6 +78,57 @@ public class UserService{
         txlist.add(trans2);
         txlist.add(trans3);
         something.setTransactions(txlist);
+
+        Goal goal1 = new Goal();
+        goal1.setCurrentAmount(250);
+        goal1.setTargetAmount(500);
+        goal1.setDescription("goal1");
+        //goal1.setUserId(something);
+        goalRepository.save(goal1);
+
+        Goal goal2 = new Goal();
+        goal2.setCurrentAmount(500);
+        goal2.setTargetAmount(750);
+        goal2.setDescription("goal2");
+        //goal2.setUserId(something);
+        goalRepository.save(goal1);
+
+        Goal goal3 = new Goal();
+        goal3.setCurrentAmount(750);
+        goal3.setTargetAmount(1000);
+        goal3.setDescription("goal3");
+        //goal3.setUserId(something);
+        goalRepository.save(goal1);
+
+        List<Goal> gllist = new ArrayList<>();
+        gllist.add(goal1);
+        gllist.add(goal2);
+        gllist.add(goal3);
+        something.setGoals(gllist);
+
+        LoanDeadline ld1 = new LoanDeadline();
+        ld1.setAmount(250);
+        ld1.setDueDate(LocalDate.now());
+        //ld1.setUserId(something);
+        LDRepository.save(ld1);
+
+        LoanDeadline ld2 = new LoanDeadline();
+        ld1.setAmount(500);
+        ld1.setDueDate(LocalDate.now());
+        //ld1.setUserId(something);
+        LDRepository.save(ld2);
+
+        LoanDeadline ld3 = new LoanDeadline();
+        ld1.setAmount(750);
+        ld1.setDueDate(LocalDate.now());
+        //ld1.setUserId(something);
+        LDRepository.save(ld3);
+
+        List<LoanDeadline> ldlist = new ArrayList<>();
+        ldlist.add(ld1);
+        ldlist.add(ld2);
+        ldlist.add(ld3);
+        something.setGoals(gllist);
         
         repository.save(something);
     }

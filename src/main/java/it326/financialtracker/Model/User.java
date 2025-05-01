@@ -49,13 +49,18 @@ public class User {
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
-    // public List<Goal> getGoals() {
-    //     return goals;
-    // }
-    // public void setGoals(List<Goal> goals) {
-    //     this.goals = goals;
-    // }
-    
+    public List<Goal> getGoals() {
+        return goals;
+    }
+    public void setGoals(List<Goal> goals) {
+        this.goals = goals;
+    }
+    public List<LoanDeadline> getloanDeadlines() {
+        return loanDeadlines;
+    }
+    public void setLoanDeadlines(List<LoanDeadline> loanDeadlines) {
+        this.loanDeadlines = loanDeadlines;
+    }
     
     
 }

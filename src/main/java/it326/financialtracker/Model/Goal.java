@@ -31,11 +31,11 @@ public class Goal {
     @JoinColumn(name = "myuser_id")
     private User myuser;
 
-  public Goal (long theGoal, String desc, double trgtAmount, double curAmount, User theUser) {
-      this.id = theGoal;
-      goalSetter(desc, trgtAmount, curAmount);
-      this.myuser = theUser;
-  }
+//   public Goal (long theGoal, String desc, double trgtAmount, double curAmount, User theUser) {
+//       this.id = theGoal;
+//       goalSetter(desc, trgtAmount, curAmount);
+//       this.myuser = theUser;
+//   }
 
   public void editGoal(String desc, double trgtAmount, double curAmount) {
       goalSetter(desc, trgtAmount, curAmount);

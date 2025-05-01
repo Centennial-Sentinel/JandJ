@@ -27,11 +27,11 @@ public class LoanDeadline {
     @JoinColumn(name = "myuser_id")
     private User myuser;
 
-    public LoanDeadline (long loanId, double amount, LocalDate dueDate, User user) {
-        this.id = loanId;
-        loanSetter(amount, dueDate);
-        this.myuser = user;
-    }
+    // public LoanDeadline (long loanId, double amount, LocalDate dueDate, User user) {
+    //     this.id = loanId;
+    //     loanSetter(amount, dueDate);
+    //     this.myuser = user;
+    // }
 
     public void editLoanDeadline(double amount, LocalDate date) {
         loanSetter(amount, date);
