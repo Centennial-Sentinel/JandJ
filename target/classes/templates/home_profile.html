@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Transactions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            margin: 2rem auto 0 auto;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        form {
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.5rem;
+            box-sizing: border-box;
+        }
+
+        .submit-btn {
+            padding: 0.75rem 1.5rem;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #e0e0e0;
+        }
+        table td {
+            max-width: 200px;
+            word-wrap: break-word;
+        }
+
+        table td form {
+            margin-bottom: 0;
+        }
+
+
+        .reset-btn,
+        .edit-btn,
+        .delete-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .edit-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .delete-btn-form button {
+            padding: 0.75rem 1.5rem;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .amount-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .currency-sign {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        table td:last-child, table td:nth-last-child(2) {
+            width: 100px;
+            text-align: center;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        .navbar a {
+            margin-right: 1rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .navbar a:last-child {
+            margin-right: 0;
+        }
+
+        .logout-button {
+            padding: 0.5rem 1rem;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .reset-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+        .search-button-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .clear-form {
+            margin: 0;
+        }
+
+        .clear-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <a href="/home_transactions">Transactions</a>
+            <a href="/home_goals">Goals</a>
+            <a href="/home_loan_deadlines">Loan Deadlines</a>
+            <a href="/home_profile">Profile</a>
+        </div>
+        <div>
+            <form action="/logout" method="post" style="display: inline;">
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- User Profile Update Section -->
+        <h3>Update Profile</h3>
+        <form action="/home_profile/update" method="post">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+
+            <button type="submit" class="submit-btn">Update Profile</button>
+        </form>
+
+        <!-- User Delete Section -->
+        <form action="/home_profile/delete" method="post" style="margin-top: 1rem;">
+            <button type="submit" class="delete-btn">Delete Account</button>
+        </form>
+
+    </div>
+
+   
+</body>
+</html>

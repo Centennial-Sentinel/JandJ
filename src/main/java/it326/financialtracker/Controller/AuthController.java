@@ -1,49 +1,101 @@
 package it326.financialtracker.Controller;
 
-//import java.security.Principal;
-//import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-//import it326.financialtracker.Model.UserProfile;
-//import it326.financialtracker.Repository.UserProfileRepository;
-import it326.financialtracker.Service.UserService;
-//import jakarta.websocket.server.PathParam;
+import it326.financialtracker.Model.User;
+import it326.financialtracker.Model.UserProfile;
+import it326.financialtracker.Repository.UserProfileRepository;
+import it326.financialtracker.Repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AuthController {
 
     @Autowired
-    private UserService service;
+    private UserProfileRepository userProfileRepository;
+    @Autowired
+    private UserRepository userRepository;
+
+    @GetMapping("/")
+    public String redirectToProperPage(HttpSession session) {
+        if (session.getAttribute("username") != null) {
+            return "redirect:/home_transactions";  // Redirect to home page if already logged in
+        }
+        return "redirect:/login"; 
+    }
+
+    @GetMapping("/login")
+    public String showLoginPage(HttpSession session) {
+        if (session.getAttribute("username") != null) {
+            return "redirect:/home_transactions";  // Redirect to home page if already logged in
+        }
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String handleLogin(@RequestParam String username,
+                              @RequestParam String password,
+                              Model model,
+                              HttpSession session) {
+        UserProfile userProfile = userProfileRepository.findByUsername(username);
+        
+        //checks if credentials are valid
+        if (userProfile != null && userProfile.getPassword().equals(password)) {
+            session.setAttribute("username", username);
+            return "redirect:/home_transactions";
+        } else {
+            model.addAttribute("loginMessage", "Invalid username or password.");
+            return "login";
+        }
+    }
+
+    //"Create Account" button redirect
+    @GetMapping("/register")
+    public String showRegisterPage() {
+        return "register"; // refers to register.html
+    }
+
+    @PostMapping("/register")
+    public String handleRegister(@RequestParam String username,
+                                 @RequestParam String password,
+                                 @RequestParam String email,
+                                 Model model) {
+        // Check if username is already taken
+        if (userProfileRepository.findByUsername(username) != null) {
+            model.addAttribute("registerMessage", "Username already exists.");
+            return "register";
+        }
+
+        System.out.println(username);
     
-    @GetMapping("/index")
-    public ResponseEntity<String> home(){
-        return new ResponseEntity<>(service.loadByUsername("frog").toString(), HttpStatus.OK);
-    }
+        // Create the UserProfile
+        UserProfile profile = new UserProfile();
+        profile.setUsername(username);
+        profile.setPassword(password); // consider hashing this in production
+        profile.setEmail(email);
+        userProfileRepository.save(profile);
     
-    @GetMapping("/load")
-    public ResponseEntity<String> load(){
-    	//service.init();
-    	service.del();
-        return new ResponseEntity<>("success", HttpStatus.OK);
-    }
-    //query setup 1 both of these work more or less the same it's just a difference of what you put in the url
-    //yes we make queries/the application takes data via the url
-    @GetMapping("/test")
-    public ResponseEntity<String> loadWithQuery(@RequestParam String name){//test?name=test
-    	return new ResponseEntity<String>(name, HttpStatus.OK);
-    }
-    //query setup 2
-    @GetMapping("/test/{id}")
-    public ResponseEntity<Integer> loadWithQuery2(@PathVariable int id){//test/20
-    	return new ResponseEntity<Integer>(id, HttpStatus.OK);
-    }
+        // Create the User and link it
+        User user = new User();
+        user.setProfile(profile);  // owns the relationship
     
+        // Set the back-reference
+        profile.setMyuser(user);
+    
+        // Save the user (which will also save the profile due to cascade)
+        userRepository.save(user);
+    
+        model.addAttribute("registerMessage", "Account created successfully. You can now log in.");
+        return "register";
+    }
+
+    //logout function
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
 }

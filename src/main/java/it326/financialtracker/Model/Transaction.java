@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-//import jakarta.persistence.EnumType;
-//import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,10 +29,9 @@ public class Transaction {
     private LocalDate date;
     @Column(name = "tag")
     private String tag;
+    @Column(name = "type")
+    private String type;
 
-    
-
-    private TransactionType type;
     
 
     public Long getId() {
@@ -61,11 +58,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public User getUserId() {
+    public User getMyUser() {
         return myuser;
     }
 
-    public void setUserId(User myuser) {
+    public void setMyUser(User myuser) {
         this.myuser = myuser;
     }
 
@@ -77,11 +74,11 @@ public class Transaction {
         this.date = date;
     }
 
-    public TransactionType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(TransactionType type) {
+    public void setType(String type) {
         this.type = type;
     }
 

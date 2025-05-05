@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 //Captures the information of a transaction
 @Entity
-@Table(name = "loandeadline")
+@Table(name = "loandeadlines")
 public class LoanDeadline {
 
     @Id
@@ -27,27 +27,27 @@ public class LoanDeadline {
     @JoinColumn(name = "myuser_id")
     private User myuser;
 
-    // public LoanDeadline (long loanId, double amount, LocalDate dueDate, User user) {
-    //     this.id = loanId;
+    // public LoanDeadline (long id, double amount, LocalDate dueDate, User user) {
+    //     this.id = id;
     //     loanSetter(amount, dueDate);
     //     this.myuser = user;
     // }
 
-    public void editLoanDeadline(double amount, LocalDate date) {
-        loanSetter(amount, date);
-    }
+    // public void editLoanDeadline(double amount, LocalDate date) {
+    //     loanSetter(amount, date);
+    // }
 
-    private void loanSetter(double amount, LocalDate dueDate) {
-        this.amount = amount;
-        this.dueDate = dueDate;
-    }
+    // private void loanSetter(double amount, LocalDate dueDate) {
+    //     this.amount = amount;
+    //     this.dueDate = dueDate;
+    // }
 
-    public long getLoanID() {
+    public long getId() {
         return id;
     }
 
-    public void setLoanID(long loanId) {
-        this.id = loanId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public double getAmount() {
@@ -66,11 +66,11 @@ public class LoanDeadline {
         this.dueDate = dueDate;
     }
 
-    public User getUser() {
+    public User getMyUser() {
         return myuser;
     }
 
-    public void setUser(User user) {
+    public void setMyUser(User user) {
         this.myuser = user;
     }
 }

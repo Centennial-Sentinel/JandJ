@@ -47,11 +47,11 @@ public class Goal {
       this.currentAmount = curAmount;
   }
 
-  public long getGoalID() {
+  public long getId() {
       return id;
   }
 
-  public void setGoalID(long ID) {
+  public void setId(long ID) {
       this.id = ID;
   }
 
@@ -79,11 +79,11 @@ public class Goal {
       this.currentAmount = curAmount;
   }
 
-  public User getUser() {
+  public User getMyUser() {
       return myuser;
   }
 
-  public void setUser(User user) {
+  public void setMyUser(User user) {
       this.myuser = user;
   }
 }
